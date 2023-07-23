@@ -10,7 +10,7 @@ More info on how to create App password:
 https://support.google.com/accounts/answer/185833?visit_id=638256000029737167-825618320&p=InvalidSecondFactor&rd=1 */
 const pass = process.env.PASS;
 const user_name = "user name"; // User Name (Eg., John Doe)
-const resume_file_path = "local file path"; // eg., ./Resume.pdf
+const resume_file_path = ""; // Local file path to resume - (Eg., ./Resume.pdf)
 
 /* List of objects for sending emails to multiple companies at once.
 This object can be modified as per the use-case */
@@ -53,26 +53,36 @@ transporter.verify((err, _succ) => {
  * attachment.
  */
 const sendMail = () => {
-    send_to.forEach((receiver) => {
-        transporter.sendMail(
-            {
-                from: `${user_name} <${email}>`,
-                to: receiver.email,
-                subject: `Software Developer Job Application - ${user_name}`,
-                html: "<h1>Hello World</h1>", // Here goes the actual HTML content. It can be modified as per the use-case
-                attachments: [
-                {
-                    filename: "<file name for attachment>", // eg., Resume_<user name>
-                    path: resume_file_path,
-                },
-                ],
-            },
-            /* `(err, info) => {...}` is a callback function that is passed as an argument to the
+  send_to.forEach((receiver) => {
+    transporter.sendMail(
+      {
+        from: `${user_name} <${email}>`,
+        to: receiver.email,
+        subject: `Software Developer Job Application - ${user_name}`,
+        html: "<h1>Hello World</h1>", // Here goes the actual HTML content. It can be modified as per the use-case
+        attachments: getFileAttachments(),
+      },
+      /* `(err, info) => {...}` is a callback function that is passed as an argument to the
                 `transporter.sendMail` function which is called on error / success */
-            (err, info) => {
-                if (err) console.log("Email not sent", err); // logs error msg
-                else console.log("Email sent", info.response); // logs success msg
-            }
-        );
-    });
+      (err, info) => {
+        if (err) console.log("Email not sent", err); // logs error msg
+        else console.log("Email sent", info.response); // logs success msg
+      }
+    );
+  });
+};
+
+/**
+ * The function `getFileAttachments` returns an array of file attachments, specifically a resume file,
+ * if `resume_file_path` is defined.
+ */
+const getFileAttachments = () => {
+  return resume_file_path
+    ? [
+        {
+          filename: "<file name for attachment>", // eg., Resume_<user name>
+          path: resume_file_path,
+        },
+      ]
+    : [];
 };
