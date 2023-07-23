@@ -3,7 +3,7 @@
 ### Steps to run the project
 
 1. Clone the project
-2. Install Node JS
+2. Install Node JS (Skip this step if already installed)
 3. Run the command - `npm install`
 4. Create a .env file with EMAIL (Gmail Address) and PASS (Gmail App password)
 5. Update email details (Sender, Receiver, Subject, HTML content, Attachments)
