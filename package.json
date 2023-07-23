@@ -1,0 +1,15 @@
+{
+  "name": "cold-emails-nodejs",
+  "version": "1.0.0",
+  "description": "Cold emailing using Node JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Meet Parikh",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "nodemailer": "^6.9.4"
+  }
+}
